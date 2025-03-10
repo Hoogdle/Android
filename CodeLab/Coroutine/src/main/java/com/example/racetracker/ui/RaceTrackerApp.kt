@@ -52,6 +52,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.racetracker.R
 import com.example.racetracker.ui.theme.RaceTrackerTheme
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun RaceTrackerApp() {
@@ -73,8 +76,15 @@ fun RaceTrackerApp() {
 
     if (raceInProgress){
         LaunchedEffect(playerOne, playerTwo) {
-            playerOne.run()
-            playerTwo.run()
+
+            // we can wait both player's running by using coroutineScope
+            // coroutineScope force to wait until the Coroutine's process has finished,
+            // which being in the scope of coroutineScope
+
+            coroutineScope {
+                launch { playerOne.run() }
+                launch { playerTwo.run() }
+            }
             // when finished race 'raceInProgress' will be false
             // it means that  all the coroutine that launched from above two commands being canceled
             raceInProgress = false
