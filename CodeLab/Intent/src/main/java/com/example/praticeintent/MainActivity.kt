@@ -35,7 +35,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // what is the problem!!!
+        // url has to be correct : full format of url!
+        // working correct
         setContent {
             Display { url ->
                 val uri = Uri.parse(url)
